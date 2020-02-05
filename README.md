@@ -5,6 +5,8 @@
 
 This application is partially built. The front end is completely built but the express backend is only partially built.
 
+Note - you shouldn't have to modify anything in the index.html file.
+
 Examine the back end routes that the front end is looking for.
 
 Since this a CRUD app you will be looking for GET, POST, PUT, and DELETE requests.
