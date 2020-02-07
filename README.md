@@ -11,7 +11,7 @@ Examine the back end routes that the front end is looking for.
 
 Since this a CRUD app you will be looking for GET, POST, PUT, and DELETE requests.
 
-The front end is also making axios posts and push. You'll have to give your app the ability to parse JSON data
+The front end is also making axios posts and puts. You'll have to give your app the ability to parse JSON data
 
 This front end is also looking for a styles.css in the assets folder. In order for your front end to access this file, you'll need a route for that as well. (Hint - express static route)
 
