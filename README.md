@@ -5,7 +5,7 @@
 
 This application is partially built. The front end is completely built but the express backend is only partially built.
 
-Note - you shouldn't have to modify anything in the index.html file.
+***Note - you shouldn't have to modify anything in the index.html file.***
 
 Examine the back end routes that the front end is looking for.
 
@@ -21,16 +21,28 @@ Don't try and do everything at once.
 
 Consider using the uuid module to generate unique ids
 
-Step One - Add a static express route so the assets/styles.css
+# Step One
 
-Step Two - Add some JSON data to notes.json
+- Add a static express route so the assets/styles.css
 
-Step Three - Set up your GET route for for notes
+# Step Two
 
-Step Four - Set up your POST route for notes (make sure to include a body parser)
+- Add some JSON data to notes.json
 
-Step Five - Set up a DELETE route
+# Step Three
 
-Step Six - Set up a PUT route
+- Set up your GET route for for notes
+
+# Step Four
+
+- Set up your POST route for notes (make sure to include a body parser)
+
+# Step Five
+
+- Set up a DELETE route
+
+# Step Six
+
+- Set up a PUT route
 
 
