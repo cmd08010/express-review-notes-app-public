@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": 0,
+    "text": "Test note",
+    "archived": false
+  },
+  {
+    "id": 1,
+    "text": "Dont forget to . buy granulated Lime for the yard",
+    "archived": false
+  }
+]

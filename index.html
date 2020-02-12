@@ -1,75 +1,96 @@
 <html>
   <head>
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js'></script>
-<link rel='stylesheet' href='/assets/styles.css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
-    <div id='root'></div>
-    <script type='text/babel'>
-      const { useEffect, useState } = React;
+    <div id="root"></div>
+    <script type="text/babel">
+      const { useEffect, useState } = React
 
-      const App = ()=> {
-        const [ notes, setNotes ] = useState([]);
-        const [ text, setText ] = useState('');
-        useEffect(()=> {
-          axios.get('/api/notes')
-            .then( response => setNotes(response.data));
-        }, []);
+      const App = () => {
+        const [notes, setNotes] = useState([])
+        const [text, setText] = useState("")
+        useEffect(() => {
+          axios.get("/api/notes").then(response => {
+            setNotes(response.data)
+          })
+        }, [])
 
-        const toggle = (note)=> {
-          const updated = { ...note, archived: !note.archived};
-          axios.put(`/api/notes/${note.id}`, updated)
-            .then( response => {
-              setNotes(notes.map(n => n.id === note.id ? response.data: n ));
-            });
-        };
-
-        const destroy = (noteToDestroy)=> {
-          axios.delete(`/api/notes/${noteToDestroy.id}`)
-            .then( ()=> setNotes(notes.filter(note=> note.id !== noteToDestroy.id))); 
+        const toggle = note => {
+          const updated = { ...note, archived: !note.archived }
+          axios
+            .put(`/api/notes/${note.id}`, updated)
+            .then(response => {
+              setNotes(notes.map(n => (n.id === note.id ? response.data : n)))
+            })
+            .then(() =>
+              axios.get("/api/notes").then(response => setNotes(response.data))
+            )
         }
 
-        const create = (ev)=> {
-          ev.preventDefault();
-          axios.post('/api/notes', { text })
-            .then( response => setNotes([response.data, ...notes]))
-            .then( ()=> setText(''));
-        };
+        const destroy = noteToDestroy => {
+          axios
+            .delete(`/api/notes/${noteToDestroy.id}`)
+            .then(() =>
+              setNotes(notes.filter(note => note.id !== noteToDestroy.id))
+            )
+        }
+
+        const create = ev => {
+          ev.preventDefault()
+          axios
+            .post("/api/notes", { text })
+            .then(response => setNotes([response.data, ...notes]))
+            .then(() => setText(""))
+            .then(() =>
+              axios.get("/api/notes").then(response => setNotes(response.data))
+            )
+        }
         return (
           <div>
             <h1>Express Review</h1>
-            <div className='container'>
+            <div className="container">
               <h2>Notes</h2>
               <section>
-                <form onSubmit={ create }>
+                <form onSubmit={create}>
                   <h2>Add A Note</h2>
-                  <input value={ text } onChange={ ev => setText(ev.target.value) } />
-                  <button disabled={ !text }>Create</button>
+                  <input
+                    value={text}
+                    onChange={ev => setText(ev.target.value)}
+                  />
+                  <button onClick={e => create(e)}>Create</button>
                 </form>
                 <ul>
-                  {
-                    notes.map( note => {
-                      return (
-                        <li className={ note.archived ? 'archived': ''} key={ note.id }>
-                          <span onClick={()=> toggle(note)}>{ note.text }</span>
-                          <br />
-                          <button onClick={ ()=> destroy(note) }>x</button>
-                        </li>
-                      );
-                    })
-                  }
+                  {notes.map(note => {
+                    return (
+                      <li
+                        className={note.archived ? "archived" : ""}
+                        key={note.id}
+                      >
+                        <span onClick={() => toggle(note)}>{note.text}</span>
+                        <br />
+                        <button onClick={() => destroy(note)}>x</button>
+                      </li>
+                    )
+                  })}
                 </ul>
               </section>
             </div>
           </div>
-        );
-      };
+        )
+      }
 
-      ReactDOM.render(<App />, document.querySelector('#root'));
+      ReactDOM.render(<App />, document.querySelector("#root"))
     </script>
   </body>
 </html>
-
